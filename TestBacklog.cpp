@@ -18,16 +18,14 @@ static void handle_term (int sig) {
 }
 
 int main( int argc, char* argv[] ) {
-	//signal( SIGTERM, handle_term );
-	if (argc <= 2) {
+	signal( SIGTERM, handle_term );
+	if (argc <= 3) {
 		printf("usage: %s ipaddress port_number backlog\n", basename(argv[0]));
 		return 1;
 	}
 	const char* ip = argv[1];
 	int port = atoi(argv[2]); 
-	//int backlog = atoi(argv[3]);
-
-
+	int backlog = atoi(argv[3]);
 
 	struct sockaddr_in address;
 	bzero ( &address, sizeof( address)); 
@@ -41,28 +39,28 @@ int main( int argc, char* argv[] ) {
 	int ret = bind (sock, (struct sockaddr*) &address, sizeof(address));
 	assert( ret != -1 );
 
-	ret = listen( sock, 5 );
+	ret = listen( sock, backlog );
 	assert( ret != -1 );
 
-	sleep(20);
-	struct  sockaddr_in client;
-	socklen_t client_addrlength = sizeof(client);
-	int connfd = accept(sock, (struct sockaddr* )&client, &client_addrlength);
-	if (connfd < 0) {
-		printf("errno is %d\n",errno);
-	}
-	else {
-		char remote[INET_ADDRSTRLEN];
-		printf("connected with ip: %s and port: %d\n", 
-			inet_ntop(AF_INET, &client.sin_addr, remote, INET_ADDRSTRLEN),
-			ntohs( client.sin_port));
-		//close(connfd);
-		sleep(1);
-	}
-	// while (!stop) {
-	// 	printf("connect!\n");
+	// sleep(20);
+	// struct  sockaddr_in client;
+	// socklen_t client_addrlength = sizeof(client);
+	// int connfd = accept(sock, (struct sockaddr* )&client, &client_addrlength);
+	// if (connfd < 0) {
+	// 	printf("errno is %d\n",errno);
+	// }
+	// else {
+	// 	char remote[INET_ADDRSTRLEN];
+	// 	printf("connected with ip: %s and port: %d\n", 
+	// 		inet_ntop(AF_INET, &client.sin_addr, remote, INET_ADDRSTRLEN),
+	// 		ntohs( client.sin_port));
+	// 	//close(connfd);
 	// 	sleep(1);
 	// }
+	while (!stop) {
+		printf("connect!\n");
+		sleep(1);
+	}
 
 	close( sock );
 	return 0;
