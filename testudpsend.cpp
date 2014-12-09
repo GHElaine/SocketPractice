@@ -31,14 +31,14 @@ int main(int argc, char* argv[]) {
 	assert(sockfd >= 0);
 
 	
-	if (connect(sockfd, (struct sockaddr*)&address, sizeof(address)) < 0) {
-		printf("connect failed\n");
-		return -1;
-	} 
-	else {
+	// if (connect(sockfd, (struct sockaddr*)&address, sizeof(address)) < 0) {
+	// 	printf("connect failed\n");
+	// 	return -1;
+	// } 
+	//else {
 		const char* buffer = "hello Elaine";
 		sendto(sockfd, buffer, sizeof(buffer), 0, (sockaddr*)&address, sizeof(address));
-	}
+	//}
 	close(sockfd);
 	return 0;
 
