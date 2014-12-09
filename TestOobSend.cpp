@@ -8,6 +8,9 @@
 #include <errno.h> 
 #include <string.h> 
 #include <libgen.h>
+#include <iostream>
+
+using namespace std;
 
 int main (int argc, char* argv[]) {
 	if (argc <= 2) {
@@ -20,8 +23,11 @@ int main (int argc, char* argv[]) {
 	struct  sockaddr_in server_address;
 	bzero(&server_address, sizeof(server_address));
 	server_address.sin_family = AF_INET;
-	inet_pton(AF_INET, ip, &server_address.sin_family);
+
+	int tmp = inet_pton(AF_INET, ip, &server_address.sin_addr);
 	server_address.sin_port = htons(port);
+	cout << server_address.sin_port << endl;
+	
 
 	int sockfd = socket(PF_INET, SOCK_STREAM, 0);
 	assert (sockfd >= 0);
