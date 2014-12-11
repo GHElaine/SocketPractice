@@ -45,8 +45,10 @@ int main(int argc, char* argv[]) {
 	//else {
 		char buffer[BUFFER_SIZE];
 		memset(buffer,'\0',sizeof(buffer));
-		ret = recvfrom(sock, buffer, BUFFER_SIZE-1, 0, (struct sockaddr*)&client, &client_addrlength);
-		printf("got %d bytes of udp data '%s' \n", ret, buffer);
+		//while(1) {
+			ret = recvfrom(sock, buffer, BUFFER_SIZE-1, 0, (struct sockaddr*)&client, &client_addrlength);
+			printf("got %d bytes of udp data '%s' \n", ret, buffer);
+		//}
 
 	//}
 	close(sock);

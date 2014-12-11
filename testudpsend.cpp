@@ -37,7 +37,8 @@ int main(int argc, char* argv[]) {
 	// } 
 	//else {
 		const char* buffer = "hello Elaine";
-		sendto(sockfd, buffer, sizeof(buffer), 0, (sockaddr*)&address, sizeof(address));
+		//printf("%s ; %lu \n", buffer, sizeof("helloworld") );
+		sendto(sockfd, buffer, strlen(buffer), 0, (sockaddr*)&address, sizeof(address));
 	//}
 	close(sockfd);
 	return 0;
