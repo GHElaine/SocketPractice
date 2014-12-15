@@ -30,6 +30,8 @@ int main(int argc, char* argv[]) {
 	setsockopt(sock, SOL_SOCKET, SO_SNDBUF, &buffer, sizeof(buffer));
 	getsockopt(sock, SOL_SOCKET, SO_SNDBUF, &buffer, (socklen_t*)&len);
 
+	printf("the tcp send buffer size after setting is %d\n", buffer);
+
 	if (connect(sock, (struct sockaddr*)&addr, sizeof(addr)) != -1) {
 		char buf[BUFFER_SIZE];
 		memset(buf, 'a', BUFFER_SIZE);
